@@ -1,6 +1,6 @@
 package constants;
 
-public enum Loginstatus {
+public enum LoginStatus {
     SUCCESS,
     USERNOTEXIST,
     PASSWORDNOTMATCHED

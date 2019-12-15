@@ -1,30 +1,30 @@
 package handlers;
 
 import mainclasses.Connector;
-import constants.Loginstatus;
-import requests.Loginrequest;
-import results.Loginresult;
+import constants.LoginStatus;
+import requests.LoginRequest;
+import results.LoginResult;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
 
-public class Loginhandler {
-    private Loginrequest loginrequest;
+public class LoginHandler {
+    private LoginRequest loginrequest;
     private Connection connection = null;
     private String ip = null;
 
 
-    public Loginhandler(Loginrequest loginrequest,String ip){
+    public LoginHandler(LoginRequest loginrequest, String ip){
         this.loginrequest = loginrequest;
         this.ip = ip;
     }
-    public Loginresult handle() throws  Exception
+    public LoginResult handle() throws  Exception
     {
         return  checkCredentials();
     }
-    public Loginresult checkCredentials() throws Exception{
+    public LoginResult checkCredentials() throws Exception{
 
 
         connection = Connector.getConnection();
@@ -35,16 +35,16 @@ public class Loginhandler {
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
                 if(loginrequest.getPassword().equals(resultSet.getString("password")))
-                    return getDetails(Loginstatus.SUCCESS);
+                    return getDetails(LoginStatus.SUCCESS);
                 else
-                    return getDetails(Loginstatus.PASSWORDNOTMATCHED);
+                    return getDetails(LoginStatus.PASSWORDNOTMATCHED);
         }
         else{
-            return getDetails(Loginstatus.USERNOTEXIST);
+            return getDetails(LoginStatus.USERNOTEXIST);
         }
     }
 
-    public Loginresult getDetails(Loginstatus loginstatus) throws Exception {
+    public LoginResult getDetails(LoginStatus loginstatus) throws Exception {
 
         switch (loginstatus) {
 
@@ -53,11 +53,11 @@ public class Loginhandler {
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1,this.loginrequest.getUsername());
                 ResultSet resultSet = preparedStatement.executeQuery();
-                Loginresult loginresult = null;
+                LoginResult loginresult = null;
 
 
                 if(resultSet.next()) {
-                    loginresult = new Loginresult(loginstatus, this.loginrequest.getUsername(),
+                    loginresult = new LoginResult(loginstatus, this.loginrequest.getUsername(),
                             resultSet.getString("fname"), resultSet.getString("lname"));
 
                     query = "insert into `login` (username, ip, status) values(?, ?, ?)";
@@ -75,7 +75,7 @@ public class Loginhandler {
             case USERNOTEXIST:
 
             case PASSWORDNOTMATCHED:
-                return new Loginresult(loginstatus);
+                return new LoginResult(loginstatus);
 
             default:
                 return null;

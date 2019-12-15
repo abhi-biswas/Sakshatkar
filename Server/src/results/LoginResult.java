@@ -2,25 +2,25 @@ package results;
 
 import constants.*;
 
-public class Loginresult {
-    private Loginstatus loginstatus;
+public class LoginResult {
+    private LoginStatus loginstatus;
     private String username;
     private String fname;
     private String lname;
 
-    public Loginresult(Loginstatus loginstatus, String username, String fname, String lname){
+    public LoginResult(LoginStatus loginstatus, String username, String fname, String lname){
         this.loginstatus = loginstatus;
         this.username = username;
         this.fname = fname;
         this.lname = lname;
     }
 
-    public Loginresult(Loginstatus loginstatus){
+    public LoginResult(LoginStatus loginstatus){
         this.loginstatus = loginstatus;
         this.username = this.fname = this.lname = null;
     }
 
-    public Loginstatus getLoginstatus() {
+    public LoginStatus getLoginstatus() {
         return loginstatus;
     }
 
