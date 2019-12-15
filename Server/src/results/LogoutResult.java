@@ -2,7 +2,9 @@ package results;
 
 import constants.LogoutStatus;
 
-public class LogoutResult {
+import java.io.Serializable;
+
+public class LogoutResult implements Serializable {
     LogoutStatus logoutStatus = LogoutStatus.FAILED;
 
     public LogoutResult(LogoutStatus logoutStatus){

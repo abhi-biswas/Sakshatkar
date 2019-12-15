@@ -1,6 +1,8 @@
 package constants;
 
-public enum LogoutStatus {
+import java.io.Serializable;
+
+public enum LogoutStatus implements Serializable {
     SUCCESS,
     FAILED
 }

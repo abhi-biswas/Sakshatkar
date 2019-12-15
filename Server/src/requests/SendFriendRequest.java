@@ -1,6 +1,8 @@
 package requests;
 
-public class SendFriendRequest {
+import java.io.Serializable;
+
+public class SendFriendRequest implements Serializable {
     private String senderName,receiverName;
 
     public String getSenderName() {

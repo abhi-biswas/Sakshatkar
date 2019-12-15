@@ -70,28 +70,3 @@ public class Fetchprofilehandler {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }

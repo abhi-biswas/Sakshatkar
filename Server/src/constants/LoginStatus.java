@@ -1,6 +1,8 @@
 package constants;
 
-public enum LoginStatus {
+import java.io.Serializable;
+
+public enum LoginStatus  implements Serializable {
     SUCCESS,
     USERNOTEXIST,
     PASSWORDNOTMATCHED

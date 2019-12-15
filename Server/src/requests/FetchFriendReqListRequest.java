@@ -2,10 +2,10 @@ package requests;
 
 import java.io.Serializable;
 
-public class LogoutRequest implements Serializable {
-    private String username = null;
+public class FetchFriendReqListRequest implements Serializable {
+    private String username;
 
-    public LogoutRequest(String username){
+    public FetchFriendReqListRequest(String username) {
         this.username = username;
     }
 
@@ -16,4 +16,5 @@ public class LogoutRequest implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
 }

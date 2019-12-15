@@ -2,7 +2,9 @@ package results;
 
 import constants.*;
 
-public class LoginResult {
+import java.io.Serializable;
+
+public class LoginResult implements Serializable {
     private LoginStatus loginstatus;
     private String username;
     private String fname;

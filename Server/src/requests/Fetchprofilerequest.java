@@ -2,9 +2,10 @@ package requests;
 
 import mainclasses.Connector;
 
+import java.io.Serializable;
 import java.sql.*;
 
-public class Fetchprofilerequest {
+public class Fetchprofilerequest implements Serializable {
     private String username;
     public Fetchprofilerequest(String username)
     {
@@ -24,4 +25,4 @@ public class Fetchprofilerequest {
 
 
     }
-}
+
