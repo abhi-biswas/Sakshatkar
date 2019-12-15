@@ -13,12 +13,17 @@ import java.sql.ResultSet;
 public class Loginhandler {
     private Loginrequest loginrequest;
     private Connection connection = null;
+    private String ip = null;
 
 
-    public Loginhandler(Loginrequest loginrequest){
+    public Loginhandler(Loginrequest loginrequest,String ip){
         this.loginrequest = loginrequest;
+        this.ip = ip;
     }
-
+    public Loginresult handle() throws  Exception
+    {
+        return  checkCredentials();
+    }
     public Loginresult checkCredentials() throws Exception{
 
 
@@ -47,10 +52,13 @@ public class Loginhandler {
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 Loginresult loginresult = null;
-                if(resultSet.next())
-                {
+                if(resultSet.next()) {
                     loginresult = new Loginresult(loginstatus, this.loginrequest.getUsername(),
                             resultSet.getString("fname"), resultSet.getString("lname"));
+
+                    query = "insert into login values(" + this.loginrequest.getUsername() + ", " + this.ip + ", false)";
+                    preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.executeUpdate();
                 }
                 return loginresult;
             case USERNOTEXIST:
