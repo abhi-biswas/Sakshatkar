@@ -1,3 +1,5 @@
 # Default ignored files
 /workspace.xml
 /home/gaurav/IdeaProjects/Sakshatkar/.idea/
+# Datasource local storage ignored files
+/dataSources/

@@ -1,7 +1,5 @@
 create database Sakshatkar;
-
 use Sakshatkar;
-
 create table user(username varchar(15) NOT NULL, fname varchar(40), lname varchar(40), password varchar(64)
 					,salt varchar(64), lastseen timestamp,addressline1 varchar(100), addressline2 varchar(100), city varchar(20),
 					pincode int,ugroupid int,  primary key(username));
