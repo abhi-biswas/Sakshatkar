@@ -56,7 +56,8 @@ public class Loginhandler {
                     loginresult = new Loginresult(loginstatus, this.loginrequest.getUsername(),
                             resultSet.getString("fname"), resultSet.getString("lname"));
 
-                    query = "insert into login values(" + this.loginrequest.getUsername() + ", " + this.ip + ", false)";
+                    query = "insert into login values('" + this.loginrequest.getUsername() + "', '" + this.ip + "', false)";
+                    System.out.println(query);
                     preparedStatement = connection.prepareStatement(query);
                     preparedStatement.executeUpdate();
                 }
