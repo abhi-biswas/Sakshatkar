@@ -60,17 +60,15 @@ public class LoginHandler {
                     loginresult = new LoginResult(loginstatus, this.loginrequest.getUsername(),
                             resultSet.getString("fname"), resultSet.getString("lname"));
 
-                    query = "insert into `login` (username, ip, status) values(?, ?, ?)";
+                    String query1 = "insert into login values(?, ?, ?)";
 
-                    preparedStatement = connection.prepareStatement(query);
+                    preparedStatement = connection.prepareStatement(query1);
                     preparedStatement.setString(1,this.loginrequest.getUsername());
                     preparedStatement.setString(2, this.ip);
                     preparedStatement.setBoolean(3, false);
 
                     preparedStatement.executeUpdate();
                 }
-
-
                 return loginresult;
             case USERNOTEXIST:
 
