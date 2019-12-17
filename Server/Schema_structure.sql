@@ -31,4 +31,3 @@ create table files(fileid int, filelocation varchar(100), creationtime timestamp
 create table storedin(fileid int, messageid int, primary key(fileid, messageid));
 
 create table groupmembers(groupid int, username varchar(40), primary key(groupid, username));
-
