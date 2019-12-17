@@ -29,5 +29,3 @@ create table chat(messageid int, sendername varchar(15), recievername int, sendt
 create table files(fileid int, filelocation varchar(100), creationtime timestamp, primary key(fileid));
 
 create table storedin(fileid int, messageid int, primary key(fileid, messageid));
-
-create table groupmembers(groupid int, username varchar(40), primary key(groupid, username));
