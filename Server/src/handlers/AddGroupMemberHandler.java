@@ -40,7 +40,7 @@ public class AddGroupMemberHandler {
 
                 if(resultSet.next()) {
 
-                    String query2 = "insert into groupmembers values (?, ?)";
+                    String query2 = "insert into partof values (?, ?)";
                     preparedStatement = connection.prepareStatement(query2);
 
                     preparedStatement.setInt(1, this.addGroupMemberRequest.getGroupid());
