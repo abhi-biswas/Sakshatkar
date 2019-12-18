@@ -6,5 +6,6 @@ public enum AddGrpMemStatus implements Serializable {
     SUCCESS,
     FAILURE,
     GROUPNOTEXIST,
-    USERNOTEXIST
+    USERNOTEXIST,
+    GROUPFULL
 }
