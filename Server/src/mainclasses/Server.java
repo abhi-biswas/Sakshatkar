@@ -1,8 +1,16 @@
 package mainclasses;
 
+import constants.BinaryStatus;
+import handlers.AcceptFriendHandler;
+import handlers.FetchFriendReqListHandler;
+import requests.AcceptFriendRequest;
+import requests.FetchFriendReqListRequest;
+import results.ShortUserDetail;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Server {
 
@@ -24,6 +32,20 @@ public class Server {
         {
             ex.printStackTrace();
         }
+        //Abhijeet's Tester
+        AcceptFriendRequest req = new AcceptFriendRequest("hello2","hello1");
+        AcceptFriendHandler handler = new AcceptFriendHandler(req);
+        try{
+            if(handler.handle()== BinaryStatus.SUCCESS)
+                System.out.println("Success");
+            else
+                System.out.println("Failure");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        //tester ends
         while(true)
         {
             Socket socket=null;

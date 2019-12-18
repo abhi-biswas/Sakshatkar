@@ -2,6 +2,10 @@ package results;
 
 import java.io.Serializable;
 
+/**
+ * @author Abhijeet Biswas
+ * This class is intended to show details of users who aren't friends yet.
+ */
 public class ShortUserDetail implements Serializable {
     private String username ;
     private String fname, sname,city;

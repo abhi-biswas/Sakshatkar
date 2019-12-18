@@ -23,7 +23,7 @@ create table imagemessage(messageid int, pic mediumblob, status boolean, lastuse
 
 create table textmessage(messageid int, msg tinytext, status boolean, lastused timestamp , primary key(messageid));
 
-create table chat(messageid int, sendername varchar(15), recievername int, sendtime timestamp,
+create table chat(type varchar(3),messageid int, sendername varchar(15), recievername int, sendtime timestamp,
 						 primary key(sendername, recievername, sendtime));
 
 create table files(fileid int, filelocation varchar(100), creationtime timestamp, primary key(fileid));
