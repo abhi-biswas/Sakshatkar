@@ -12,6 +12,7 @@ import java.sql.SQLException;
 
 
 public class AddGroupMemberHandler {
+
     AddGroupMemberRequest addGroupMemberRequest;
 
     public AddGroupMemberHandler(AddGroupMemberRequest addGroupMemberRequest){
@@ -21,6 +22,7 @@ public class AddGroupMemberHandler {
     public AddGrpMemStatus handle(){
         Connection connection = Connector.getConnection();
 
+        //Check whether group exists
         String query = "Select * from groups where groupid = ?";
 
         try {
@@ -32,13 +34,29 @@ public class AddGroupMemberHandler {
 
             if(resultSet.next()){
 
+                int groupcapacity = resultSet.getInt("groupcapacity");
+
                 String query1 = "select * from user where username = ?";
                 preparedStatement = connection.prepareStatement(query1);
                 preparedStatement.setString(1,this.addGroupMemberRequest.getUsername());
                 resultSet = preparedStatement.executeQuery();
 
-
+                //Check whether user exists
                 if(resultSet.next()) {
+
+                    String query3 = "select count(*) from partof where groupid = ?";
+
+                    preparedStatement = connection.prepareStatement(query3);
+                    preparedStatement.setInt(1, this.addGroupMemberRequest.getGroupid());
+                    resultSet = preparedStatement.executeQuery();
+
+                    // Check whether group is full
+                    if(resultSet.next())
+                    {
+                        if(resultSet.getInt(1) == groupcapacity)
+                            return AddGrpMemStatus.GROUPFULL;
+                    }
+
 
                     String query2 = "insert into partof values (?, ?)";
                     preparedStatement = connection.prepareStatement(query2);
