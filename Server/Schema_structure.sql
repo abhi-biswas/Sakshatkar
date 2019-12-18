@@ -24,8 +24,8 @@ create table imagemessage(messageid int, pic mediumblob, status boolean, lastuse
 create table textmessage(messageid int, msg tinytext, status boolean, lastused timestamp , primary key(messageid));
 
 create table chat(type varchar(3),messageid int, sendername varchar(15), recievername int, sendtime timestamp,
-						 primary key(sendername, recievername, sendtime));
+						 primary key(type,messageid));
 
 create table files(fileid int, filelocation varchar(100), creationtime timestamp, primary key(fileid));
 
-create table storedin(fileid int, messageid int, primary key(fileid, messageid));
+create table storedin(fileid int, type varchar(3), messageid int, primary key(fileid, type ,messageid));
