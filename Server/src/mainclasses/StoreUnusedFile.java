@@ -3,7 +3,7 @@ package mainclasses;
 import java.sql.*;
 import java.util.TimerTask;
 
-// Status -
+// inSecondary -
 // True: File stored in local disk
 //False : File stored in Database
 public class StoreUnusedFile extends TimerTask {
@@ -60,9 +60,9 @@ public class StoreUnusedFile extends TimerTask {
                     String query1 = null;
 
                     if(tablename.equals("videomessage"))
-                        query1 = "update videomessage set video = null, status = true where messageid = ?";
+                        query1 = "update videomessage set video = null, inSecondary = true where messageid = ?";
                     else
-                        query1 = "update imagemessage set pic = null, status = true where messageid = ?";
+                        query1 = "update imagemessage set pic = null, inSecondary = true where messageid = ?";
 
                     updateDatabase(fileInfo, query1, fileid, messageid, filepath);
                 }
@@ -83,21 +83,21 @@ public class StoreUnusedFile extends TimerTask {
         preparedStatement = connection.prepareStatement(query1);
         preparedStatement.setInt(1, messageid);
         preparedStatement.executeUpdate();
-
+        System.out.println("Query1 ran");
         String query2 = "insert into storedin values (?, ?)";
 
         preparedStatement = connection.prepareStatement(query2);
         preparedStatement.setInt(1, fileid);
         preparedStatement.setInt(2, messageid);
         preparedStatement.executeUpdate();
-
+        System.out.println("Query2 ran");
         String query3 = "insert into files values (?, ?, CURRENT_TIMESTAMP)";
 
         preparedStatement = connection.prepareStatement(query3);
         preparedStatement.setInt(1, fileid);
         preparedStatement.setString(2, filepath);
         preparedStatement.executeUpdate();
-
+        System.out.println("Query3 ran");
     }
 
 }

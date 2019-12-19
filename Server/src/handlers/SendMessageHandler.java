@@ -15,7 +15,6 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-// not tested yet
 
 public class SendMessageHandler {
     private SendMessageRequest request;
