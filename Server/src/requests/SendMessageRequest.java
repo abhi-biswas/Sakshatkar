@@ -5,7 +5,7 @@ import results.Message;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
+//for sending a new message
 public class SendMessageRequest implements Serializable {
     Message message;
 
