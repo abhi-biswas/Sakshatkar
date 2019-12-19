@@ -1,5 +1,8 @@
 package mainclasses;
 
+import constants.BinaryStatus;
+import constants.MessageType;
+
 import java.sql.*;
 import java.util.TimerTask;
 
@@ -20,20 +23,21 @@ public class StoreUnusedFile extends TimerTask {
 
         connection = Connector.getConnection();
 
-        storeunusedfile("videomessage");
+        BinaryStatus binaryStatus = storeunusedfile("videomessage");
 
-        storeunusedfile("imagemessage");
+        binaryStatus = storeunusedfile("imagemessage");
 
     }
 
     public Boolean fileUnusedforlong(long lastusedtime){
         long diff = currenttime - lastusedtime;
 
-        return diff > maxdiff;
+        return true;
+        //return diff > maxdiff;
 
     }
 
-    public void storeunusedfile(String tablename){
+    public BinaryStatus storeunusedfile(String tablename){
 
         try {
 
@@ -53,6 +57,11 @@ public class StoreUnusedFile extends TimerTask {
                     byte []ar = blob.getBytes(1, (int) blob.length());
 
                     FileInfo fileInfo = StoreHandler.store(ar);
+
+                    if(fileInfo.getBinaryStatus() == BinaryStatus.FAILURE)
+                        return BinaryStatus.FAILURE;
+
+
                     int fileid = fileInfo.getFileid();
                     int messageid = resultSet.getInt(1);
                     String filepath = fileInfo.getFilepath();
@@ -60,44 +69,63 @@ public class StoreUnusedFile extends TimerTask {
                     String query1 = null;
 
                     if(tablename.equals("videomessage"))
+                    {
                         query1 = "update videomessage set video = null, inSecondary = true where messageid = ?";
+                        updateDatabase(fileInfo, query1, fileid, messageid, filepath, MessageType.VIDEO);
+                    }
                     else
+                    {
                         query1 = "update imagemessage set pic = null, inSecondary = true where messageid = ?";
-
-                    updateDatabase(fileInfo, query1, fileid, messageid, filepath);
+                        updateDatabase(fileInfo, query1, fileid, messageid, filepath, MessageType.IMAGE);
+                    }
                 }
 
             }
 
+            return BinaryStatus.SUCCESS;
 
         }catch(SQLException e){
             e.printStackTrace();
+            return BinaryStatus.FAILURE;
         }
     }
 
-    public void updateDatabase(FileInfo fileInfo, String query1,int fileid,
-                               int messageid, String filepath) throws SQLException{
+    public BinaryStatus updateDatabase(FileInfo fileInfo, String query1,int fileid,
+                               int messageid, String filepath, MessageType messageType){
 
-        PreparedStatement preparedStatement;
+        try {
+            PreparedStatement preparedStatement;
 
-        preparedStatement = connection.prepareStatement(query1);
-        preparedStatement.setInt(1, messageid);
-        preparedStatement.executeUpdate();
-        System.out.println("Query1 ran");
-        String query2 = "insert into storedin values (?, ?)";
+            //Update Videomessage or Imagemeesage table;
+            preparedStatement = connection.prepareStatement(query1);
+            preparedStatement.setInt(1, messageid);
+            preparedStatement.executeUpdate();
+            System.out.println("Query1 ran");
 
-        preparedStatement = connection.prepareStatement(query2);
-        preparedStatement.setInt(1, fileid);
-        preparedStatement.setInt(2, messageid);
-        preparedStatement.executeUpdate();
-        System.out.println("Query2 ran");
-        String query3 = "insert into files values (?, ?, CURRENT_TIMESTAMP)";
+            //insert data into storedin table
+            String query2 = "insert into storedin values (?, ?, ?)";
+            preparedStatement = connection.prepareStatement(query2);
+            preparedStatement.setInt(1, fileid);
+            preparedStatement.setString(2, messageType.toString());
+            preparedStatement.setInt(3, messageid);
+            preparedStatement.executeUpdate();
+            System.out.println("Query2 ran");
 
-        preparedStatement = connection.prepareStatement(query3);
-        preparedStatement.setInt(1, fileid);
-        preparedStatement.setString(2, filepath);
-        preparedStatement.executeUpdate();
-        System.out.println("Query3 ran");
+            //insert data into files table;
+            String query3 = "insert into files values (?, ?, CURRENT_TIMESTAMP)";
+            preparedStatement = connection.prepareStatement(query3);
+            preparedStatement.setInt(1, fileid);
+            preparedStatement.setString(2, filepath);
+            preparedStatement.executeUpdate();
+            System.out.println("Query3 ran");
+
+            return  BinaryStatus.SUCCESS;
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return BinaryStatus.FAILURE;
+        }
     }
 
 }
