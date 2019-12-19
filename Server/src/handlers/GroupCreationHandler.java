@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class GroupCreationHandler {
     private GroupCreationRequest groupCreationRequest;
-    private static int groupid = 1;
+    private static int groupid = 0;
 
     public GroupCreationHandler(GroupCreationRequest groupCreationRequest){
         this.groupCreationRequest = groupCreationRequest;
@@ -19,14 +19,13 @@ public class GroupCreationHandler {
 
     public GroupCreationResult handle(){
         Connection connection = Connector.getConnection();
-
+        int gid = updategroupid();
         String query = "insert into groups values (?, ?, ?, ?)";
 
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-            preparedStatement.setInt(1, groupid);
+            preparedStatement.setInt(1, gid);
             preparedStatement.setString(2, groupCreationRequest.getOwnername());
             preparedStatement.setString(3, groupCreationRequest.getGroupname());
             preparedStatement.setInt(4, groupCreationRequest.getGroupcapacity());
@@ -40,7 +39,7 @@ public class GroupCreationHandler {
             String query1 = "insert into partof values (?, ?)";
 
             preparedStatement = connection.prepareStatement(query1);
-            preparedStatement.setInt(1, groupid);
+            preparedStatement.setInt(1, gid);
             preparedStatement.setString(2, groupCreationRequest.getOwnername());
             stat = preparedStatement.executeUpdate();
 
@@ -49,8 +48,6 @@ public class GroupCreationHandler {
             if(stat != 1)
                 return new GroupCreationResult(BinaryStatus.FAILURE);
 
-
-            groupid++;
             return new GroupCreationResult(groupid);
 
 
@@ -60,4 +57,9 @@ public class GroupCreationHandler {
         }
 
     }
+
+    public static synchronized int updategroupid(){
+                groupid++;
+                return groupid;
+            }
 }
