@@ -38,7 +38,7 @@ public class SignUpHandler {
             statement2.setString(6,req.getAddressline1());
             statement2.setString(7,req.getAddressline2());
             statement2.setString(8,req.getCity());
-            statement2.setString(9,req.getPincode());
+            statement2.setInt(9,req.getPincode());
             statement2.setInt(10,GroupCreationHandler.updategroupid());
             int count = statement2.executeUpdate();
             if(count!=1)

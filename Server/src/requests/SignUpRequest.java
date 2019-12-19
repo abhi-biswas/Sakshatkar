@@ -3,9 +3,10 @@ package requests;
 import java.io.Serializable;
 
 public class SignUpRequest implements Serializable {
-    private String username,fname,lname,password,addressline1,addressline2,city,pincode;
+    private String username,fname,lname,password,addressline1,addressline2,city;
+    int pincode;
 
-    public SignUpRequest(String username, String fname, String lname, String password, String addressline1, String addressline2, String city, String pincode) {
+    public SignUpRequest(String username, String fname, String lname, String password, String addressline1, String addressline2, String city, int pincode) {
         this.username = username;
         this.fname = fname;
         this.lname = lname;
@@ -44,7 +45,7 @@ public class SignUpRequest implements Serializable {
         return city;
     }
 
-    public String getPincode() {
+    public int getPincode() {
         return pincode;
     }
 }
