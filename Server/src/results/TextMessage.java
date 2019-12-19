@@ -12,7 +12,7 @@ public class TextMessage extends Message {
         this.content = content;
     }
 
-    public String getContent() {
+    public String getTextData() {
         return content;
     }
 }
