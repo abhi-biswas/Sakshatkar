@@ -1,4 +1,4 @@
-create database Sakshatkar;
+-- create database Sakshatkar;
 use Sakshatkar;
 create table user(username varchar(15) NOT NULL, fname varchar(40), lname varchar(40), password varchar(64)
 					,salt varchar(64), lastseen timestamp,addressline1 varchar(100), addressline2 varchar(100), city varchar(20),
@@ -25,7 +25,8 @@ create table imagemessage(messageid int, pic mediumblob, inSecondary boolean, la
 create table textmessage(messageid int, msg tinytext, inSecondary boolean, lastused timestamp , primary key(messageid));
 
 -- viewStatus >> 0 -> sent , 1-> received by the recipient, 2 -> seen (to be added in future)
-create table chat(type varchar(3),messageid int, sendername varchar(15), recievername varchar(15), sendtime timestamp,
+-- recievername is groupid for group and ugroupid for user
+create table chat(type varchar(3),messageid int, sendername varchar(15), recievername int, sendtime timestamp,
 						 primary key(type,messageid),viewStatus int(1));
 
 create table files(fileid int, filelocation varchar(100), creationtime timestamp, primary key(fileid));
