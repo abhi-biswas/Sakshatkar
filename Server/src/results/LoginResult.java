@@ -9,12 +9,14 @@ public class LoginResult implements Serializable {
     private String username;
     private String fname;
     private String lname;
+    private int ugroupid;
 
-    public LoginResult(LoginStatus loginstatus, String username, String fname, String lname){
+    public LoginResult(LoginStatus loginstatus, String username, String fname, String lname, int ugroupid){
         this.loginstatus = loginstatus;
         this.username = username;
         this.fname = fname;
         this.lname = lname;
+        this.ugroupid = ugroupid;
     }
 
     public LoginResult(LoginStatus loginstatus){
@@ -36,6 +38,10 @@ public class LoginResult implements Serializable {
 
     public String getUsername() {
         return username;
+    }
+
+    public int getUgroupid() {
+        return ugroupid;
     }
 }
 
