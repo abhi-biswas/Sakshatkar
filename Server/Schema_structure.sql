@@ -17,14 +17,16 @@ create table partof(groupid int, username varchar(15), primary key(groupid, user
 
 create table profilepic(username varchar(15), pic mediumblob, primary key(username));
 
-create table videomessage(messageid int, video longblob, status boolean, lastused timestamp , primary key(messageid));
+-- inSecondary -> true means in secondary storage
+create table videomessage(messageid int, video longblob, inSecondary boolean, lastused timestamp , primary key(messageid));
 
-create table imagemessage(messageid int, pic mediumblob, status boolean, lastused timestamp , primary key(messageid));
+create table imagemessage(messageid int, pic mediumblob, inSecondary boolean, lastused timestamp , primary key(messageid));
 
-create table textmessage(messageid int, msg tinytext, status boolean, lastused timestamp , primary key(messageid));
+create table textmessage(messageid int, msg tinytext, inSecondary boolean, lastused timestamp , primary key(messageid));
 
+-- viewStatus >> 0 -> sent , 1-> received by the recipient, 2 -> seen (to be added in future)
 create table chat(type varchar(3),messageid int, sendername varchar(15), recievername int, sendtime timestamp,
-						 primary key(type,messageid));
+						 primary key(type,messageid),viewStatus int(1));
 
 create table files(fileid int, filelocation varchar(100), creationtime timestamp, primary key(fileid));
 
