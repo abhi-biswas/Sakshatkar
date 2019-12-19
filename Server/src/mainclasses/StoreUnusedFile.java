@@ -31,9 +31,7 @@ public class StoreUnusedFile extends TimerTask {
 
     public Boolean fileUnusedforlong(long lastusedtime){
         long diff = currenttime - lastusedtime;
-
-        return true;
-        //return diff > maxdiff;
+        return diff > maxdiff;
 
     }
 
