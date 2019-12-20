@@ -52,7 +52,35 @@ public class RequestHandler extends Thread
                     System.out.println(client + " Disconnected");
                     break;
                 }
+                Handler handler=null;
 
+                if(inReq instanceof LoginRequest)
+                    handler = new LoginHandler((LoginRequest) inReq,""+socket.getRemoteSocketAddress());
+
+                if(inReq instanceof SignUpRequest)
+                    handler = new SignUpHandler((SignUpRequest)inReq);
+
+                if(inReq instanceof AcceptFriendRequest)
+                    handler = new AcceptFriendHandler((AcceptFriendRequest) inReq);
+
+                if(inReq instanceof FetchFriendReqListResult)
+                    handler = new FetchFriendReqListHandler((FetchFriendReqListRequest) inReq);
+
+                if(inReq instanceof FetchMessagesRequest)
+                    handler = new FetchFriendReqListHandler((FetchFriendReqListRequest) inReq);
+
+                if(inReq instanceof FetchSaltResult)
+                    handler = new FetchSaltHandler((FetchSaltRequest) inReq);
+
+                if(inReq instanceof SendFriendRequest)
+                    handler = new SendFriendRequestHandler((SendFriendRequest) inReq);
+
+                if(inReq instanceof SendMessageRequest)
+                    handler = new SendMessageHandler((SendMessageRequest) inReq);
+
+                //add your handler
+                Object resp = handler.handle();
+                oos.writeObject(resp);
             }
             catch (Exception e){
                 e.printStackTrace();
