@@ -148,7 +148,7 @@ public class FetchMessagesHandler {
         int count = statement.executeUpdate();
         if(count!=1)
             throw new Exception("Error in update");
-        updateQuery = "delete from storedin where type = ?,messageid = ?";
+        updateQuery = "delete from storedin where type = ? and messageid = ?";
         statement = Connector.getConnection().prepareStatement(updateQuery);
         statement.setString(1,type);
         statement.setInt(2,messageid);

@@ -8,7 +8,7 @@ import java.io.File;
 
 public class StoreHandler {
     private static int fileid = 0;
-    private  static String filepathprefix = "/home/kunal/Inventory/file";
+    private  static String filepathprefix = "./Inventory/file";
 
     public static FileInfo store(byte []ar){
 

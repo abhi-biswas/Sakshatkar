@@ -13,7 +13,7 @@ public class StoreUnusedFile extends TimerTask {
     private long currenttime;
     private long maxdiff;
     private Connection connection;
-
+    public static boolean storingIntoSecondary=false;
     public StoreUnusedFile(){
         this.currenttime = System.currentTimeMillis();
         this.maxdiff = 86400000;        // time difference equivalent to one day
@@ -21,12 +21,15 @@ public class StoreUnusedFile extends TimerTask {
 
     public void run() {
 
+        storingIntoSecondary = true;
+        System.out.println("Storing messages into secondary memory");
         connection = Connector.getConnection();
 
         BinaryStatus binaryStatus = storeunusedfile("videomessage");
 
         binaryStatus = storeunusedfile("imagemessage");
-
+        storingIntoSecondary = false;
+        System.out.println("Storing done");
     }
 
     public Boolean fileUnusedforlong(long lastusedtime){
@@ -39,7 +42,7 @@ public class StoreUnusedFile extends TimerTask {
 
         try {
 
-            String query = "select * from " + tablename;
+            String query = "select * from " + tablename+  " where inSecondary = false" ;
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
@@ -82,7 +85,7 @@ public class StoreUnusedFile extends TimerTask {
 
             return BinaryStatus.SUCCESS;
 
-        }catch(SQLException e){
+        }catch(Exception e){
             e.printStackTrace();
             return BinaryStatus.FAILURE;
         }
@@ -94,11 +97,7 @@ public class StoreUnusedFile extends TimerTask {
         try {
             PreparedStatement preparedStatement;
 
-            //Update Videomessage or Imagemeesage table;
-            preparedStatement = connection.prepareStatement(query1);
-            preparedStatement.setInt(1, messageid);
-            preparedStatement.executeUpdate();
-            System.out.println("Query1 ran");
+
 
             //insert data into storedin table
             String query2 = "insert into storedin values (?, ?, ?)";
@@ -107,7 +106,7 @@ public class StoreUnusedFile extends TimerTask {
             preparedStatement.setString(2, messageType.toString());
             preparedStatement.setInt(3, messageid);
             preparedStatement.executeUpdate();
-            System.out.println("Query2 ran");
+            //System.out.println("Query2 ran");
 
             //insert data into files table;
             String query3 = "insert into files values (?, ?, CURRENT_TIMESTAMP)";
@@ -115,12 +114,18 @@ public class StoreUnusedFile extends TimerTask {
             preparedStatement.setInt(1, fileid);
             preparedStatement.setString(2, filepath);
             preparedStatement.executeUpdate();
-            System.out.println("Query3 ran");
+            //System.out.println("Query3 ran");
+
+            //Update Videomessage or Imagemeesage table;
+            preparedStatement = connection.prepareStatement(query1);
+            preparedStatement.setInt(1, messageid);
+            preparedStatement.executeUpdate();
+            //System.out.println("Query1 ran");
 
             return  BinaryStatus.SUCCESS;
 
 
-        }catch (SQLException e){
+        }catch (Exception e){
             e.printStackTrace();
             return BinaryStatus.FAILURE;
         }
