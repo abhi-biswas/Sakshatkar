@@ -22,7 +22,9 @@ public  class index  {
 
         Parent root=null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../GUI/login.fxml"));
+            System.out.println("Working Directory = " +
+                    System.getProperty("user.dir"));
+            root = FXMLLoader.load(getClass().getResource("../gui/login.fxml"));
 
             stage.setScene(new Scene(root, 800, 600));
             stage.setTitle("Login");
@@ -39,7 +41,7 @@ public  class index  {
 
         Parent root=null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../GUI/signup.fxml"));
+            root = FXMLLoader.load(getClass().getResource("../gui/signup.fxml"));
 
             stage.setScene(new Scene(root, 800, 600));
             stage.setTitle("SignUp");
