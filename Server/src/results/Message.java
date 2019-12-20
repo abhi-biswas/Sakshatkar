@@ -4,8 +4,8 @@ import constants.MessageType;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
-public class Message implements Serializable {
+//intended to be used when the client creates new message
+abstract public class Message implements Serializable {
     private MessageType type;
     private String sender,receiver;
     private Timestamp timestamp;

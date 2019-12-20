@@ -58,7 +58,7 @@ public class LoginHandler {
 
                 if(resultSet.next()) {
                     loginresult = new LoginResult(loginstatus, this.loginrequest.getUsername(),
-                            resultSet.getString("fname"), resultSet.getString("lname"));
+                            resultSet.getString("fname"), resultSet.getString("lname"), resultSet.getInt("ugroupid"));
 
                     String query1 = "insert into login values(?, ?, ?)";
 

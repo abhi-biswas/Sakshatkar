@@ -5,14 +5,14 @@ import constants.MessageType;
 import java.sql.Timestamp;
 
 public class VideoMessage extends Message {
-    private Byte videodata[];
+    private byte videodata[];
 
-    public VideoMessage(MessageType type, String sender, String receiver, Timestamp timestamp, Byte[] videodata) {
-        super(type, sender, receiver, timestamp);
+    public VideoMessage( String sender, String receiver, Timestamp timestamp, byte[] videodata) {
+        super(MessageType.VIDEO, sender, receiver, timestamp);
         this.videodata = videodata;
     }
 
-    public Byte[] getVideodata() {
+    public byte[] getVideodata() {
         return videodata;
     }
 }
