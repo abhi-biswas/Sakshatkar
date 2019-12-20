@@ -17,7 +17,7 @@ public class Fetchprofilehandler {
     }
     public Fetchprofileresult handle() throws SQLException {
         //System.out.print(this.fetchprofilerequest.getUsername());
-        boolean isloggedin=isLoggedIn(this.fetchprofilerequest.getUsername());
+         boolean isloggedin=isLoggedIn(this.fetchprofilerequest.getUsername());
         if(!isloggedin) {
             return new Fetchprofileresult(this.fetchprofilerequest.getUsername(), FetchprofileStatus.NOTLOGGEDIN);
         }
