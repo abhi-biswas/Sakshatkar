@@ -2,7 +2,7 @@ package requests;
 
 import java.io.Serializable;
 
-public class FetchMessagesRequest implements Serializable {
+public abstract class FetchMessagesRequest implements Serializable {
    private String sendername,receivername;
 
     public FetchMessagesRequest(String sendername, String receivername) {

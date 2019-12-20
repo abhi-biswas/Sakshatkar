@@ -1,27 +1,27 @@
 package results;
 
-import constants.FetchMessageStatus;
+import constants.FetchMessagesStatus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class FetchMessagesResult implements Serializable {
     ArrayList<Message> list;
-    FetchMessageStatus status;
+    FetchMessagesStatus status;
     public ArrayList<Message> getList() {
         return list;
     }
 
     public FetchMessagesResult(ArrayList<Message> list) {
         this.list = list;
-        status = FetchMessageStatus.SUCCESS;
+        status = FetchMessagesStatus.SUCCESS;
     }
 
-    public FetchMessagesResult(FetchMessageStatus status) {
+    public FetchMessagesResult(FetchMessagesStatus status) {
         this.status = status;
     }
 
-    public FetchMessageStatus getStatus() {
+    public FetchMessagesStatus getStatus() {
         return status;
     }
 }
