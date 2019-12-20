@@ -1,8 +1,13 @@
 package mainclasses;
+import constants.SearchUserStatus;
 import constants.ShowOnlineUserStatus;
 import constants.UpdateProfileStatus;
+import handlers.SearchUserHandler;
 import handlers.ShowOnlineUserHandler;
+import requests.SearchUserRequest;
 import requests.ShowOnlineUserRequest;
+import results.SearchUserResult;
+import results.ShortUserDetail;
 import results.ShowOnlineUserResult;
 
 import java.io.IOException;
@@ -27,22 +32,21 @@ public class Gaurav_temp {
         {
             ex.printStackTrace();
         }
-        ShowOnlineUserRequest req = new ShowOnlineUserRequest("gaurav","172.31.100.27");
-        ShowOnlineUserHandler handler= new ShowOnlineUserHandler(req);
+        SearchUserRequest req = new SearchUserRequest("gaurav");
+        SearchUserHandler handler= new SearchUserHandler(req);
         try{
-            ShowOnlineUserResult showOnlineUserResult =handler.handle();
+            SearchUserResult searchUserResult =handler.handle();
             System.out.print("okkkk");
-            if(showOnlineUserResult.getShowOnlineUserStatus()== ShowOnlineUserStatus.SUCESS)
+            if(searchUserResult.getSearchUserStatus()== SearchUserStatus.FOUND)
             {
 
-                System.out.println("LIST OF ONLINE USER");
-                System.out.print(showOnlineUserResult.getOnline().size());
-                for(int i=0;i<showOnlineUserResult.getOnline().size();i++)
-                System.out.println(showOnlineUserResult.getOnline().get(i).getUsername()+showOnlineUserResult.getOnline().get(i).getFname());
+                System.out.println("USER DETAILS");
+                ShortUserDetail shortUserDetail=searchUserResult.getShortUserDetail();
+                System.out.print(shortUserDetail.getUsername()+" "+shortUserDetail.getFname()+" "+shortUserDetail.getSname()+" "+shortUserDetail.getCity());
             }
             else
             {
-                System.out.println("Failure update");
+                System.out.println("USERNOT FOUND");
             }
         }
         catch (Exception e)
