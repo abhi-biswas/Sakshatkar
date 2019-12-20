@@ -1,7 +1,5 @@
 package results;
-
 import constants.FetchprofileStatus;
-
 public class Fetchprofileresult {
     private FetchprofileStatus fetchprofileStatus;
     private String username;
@@ -19,7 +17,7 @@ public class Fetchprofileresult {
         this.fname=this.lname=this.addressline1=this.addressline2=this.city=null;
         this.pincode=0;
     }
-    public Fetchprofileresult(String username,String fname,String lname,String addressline1,String addressline2,String city,int pincodeFetchprofile,FetchprofileStatus fetchprofileStatus)
+    public Fetchprofileresult(String username,String fname,String lname,String addressline1,String addressline2,String city,int pincode,FetchprofileStatus fetchprofileStatus)
     {
         this.fetchprofileStatus=fetchprofileStatus;
         this.username=username;
@@ -29,13 +27,7 @@ public class Fetchprofileresult {
         this.addressline2=addressline2;
         this.city=city;
         this.pincode=pincode;
-
-
     }
-
-
-
-
     public FetchprofileStatus getLoginstatus() {
         return fetchprofileStatus;
     }
@@ -43,4 +35,3 @@ public class Fetchprofileresult {
         return username;
     }
 }
-

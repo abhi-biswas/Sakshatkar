@@ -1,7 +1,9 @@
 package constants;
+
 import java.io.Serializable;
-public enum FetchprofileStatus implements Serializable {
+
+public enum UpdateProfileStatus implements Serializable {
     SUCESS,
-    USERNOTEXIST,
+    FAILURE,
     NOTLOGGEDIN
 }

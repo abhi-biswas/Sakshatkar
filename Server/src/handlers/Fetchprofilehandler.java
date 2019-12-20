@@ -8,6 +8,7 @@ import results.Fetchprofileresult;
 import java.sql.*;
 
 public class Fetchprofilehandler {
+    private Connection con=Connector.getConnection();
 
     private Fetchprofilerequest fetchprofilerequest;
     public Fetchprofilehandler(Fetchprofilerequest fetchprofilerequest)
@@ -15,19 +16,20 @@ public class Fetchprofilehandler {
         this.fetchprofilerequest=fetchprofilerequest;
     }
     public Fetchprofileresult handle() throws SQLException {
-        boolean isloggedin=isLoggedIn(this.fetchprofilerequest.getUsername());
+        //System.out.print(this.fetchprofilerequest.getUsername());
+         boolean isloggedin=isLoggedIn(this.fetchprofilerequest.getUsername());
         if(!isloggedin) {
             return new Fetchprofileresult(this.fetchprofilerequest.getUsername(), FetchprofileStatus.NOTLOGGEDIN);
         }
         else {
-            Connection con = Connector.getConnection();
-            String query = "select *from user where username= ?";
+         //   System.out.print("okk");
+            System.out.print(isloggedin);
+           // con = Connector.getConnection();
+            String query = "select * from user where username = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1,this.fetchprofilerequest.getUsername());
+           ResultSet rs = preparedStatement.executeQuery();
 
-            PreparedStatement stmt = con.prepareStatement(query);
-
-            stmt.setString(1,this.fetchprofilerequest.getUsername());
-
-            ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
 
                 String username=rs.getString("username");
@@ -37,6 +39,7 @@ public class Fetchprofilehandler {
                 String addressline2=rs.getString("addressline2");
                 String city=rs.getString("city");
                 int pincode=rs.getInt("pincode");
+                //System.out.print(username+fname+lname+addressline1+addressline2+city);
                 return new Fetchprofileresult(username,fname,lname,addressline1,addressline2,city,pincode,FetchprofileStatus.SUCESS);
             }
             else
@@ -46,14 +49,13 @@ public class Fetchprofilehandler {
 
 
     private boolean isLoggedIn(String username) throws SQLException {
-        Connection con = Connector.getConnection();
-        String query = "select *from login where username= ?";
 
-        PreparedStatement stmt = con.prepareStatement(query);
 
-        stmt.setString(1,this.fetchprofilerequest.getUsername());
-
-        ResultSet rs = stmt.executeQuery(query);
+        String query = "select * from login where username = ?";
+        PreparedStatement preparedStatement = con.prepareStatement(query);
+        preparedStatement.setString(1, this.fetchprofilerequest.getUsername());
+        ResultSet rs = preparedStatement.executeQuery();
+        System.out.print("ok");
         if (rs.next()) {
 
             return true;
