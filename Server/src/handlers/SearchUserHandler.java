@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SearchUserHandler implements Serializable {
+public class SearchUserHandler implements Handler {
     private SearchUserRequest searchUserRequest;
     public SearchUserHandler(SearchUserRequest searchUserRequest)
     {
@@ -19,19 +19,27 @@ public class SearchUserHandler implements Serializable {
     }
     private Connection  con=Connector.getConnection();
 
-    public SearchUserResult handle() throws SQLException{
-        String query="select * from user where username=?";
-        PreparedStatement preparedStatement=con.prepareStatement(query);
-        preparedStatement.setString(1,this.searchUserRequest.getUsername());
-        ResultSet rs=preparedStatement.executeQuery();
-        if(rs.next())
+    public SearchUserResult handle() {
+        try
         {
-            return new SearchUserResult(new ShortUserDetail(this.searchUserRequest.getUsername(),rs.getString("fname"),rs.getString("lname"),rs.getString("city")), SearchUserStatus.FOUND);
-        }
-        else
-        {
-            return new SearchUserResult(new ShortUserDetail("NA","NA","NA","NA"), SearchUserStatus.NOTFOUND);
+            String query="select * from user where username=?";
+            PreparedStatement preparedStatement=con.prepareStatement(query);
+            preparedStatement.setString(1,this.searchUserRequest.getUsername());
+            ResultSet rs=preparedStatement.executeQuery();
+            if(rs.next())
+            {
+                return new SearchUserResult(new ShortUserDetail(this.searchUserRequest.getUsername(),rs.getString("fname"),rs.getString("lname"),rs.getString("city")), SearchUserStatus.FOUND);
+            }
+            else
+            {
+                return new SearchUserResult(new ShortUserDetail("NA","NA","NA","NA"), SearchUserStatus.NOTFOUND);
 
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return new SearchUserResult(SearchUserStatus.ERROR);
         }
 
 

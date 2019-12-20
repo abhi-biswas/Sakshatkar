@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 
 
-public class AddGroupMemberHandler {
+public class AddGroupMemberHandler implements Handler {
 
     AddGroupMemberRequest addGroupMemberRequest;
 

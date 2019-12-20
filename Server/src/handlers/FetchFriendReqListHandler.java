@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class FetchFriendReqListHandler {
+public class FetchFriendReqListHandler implements Handler{
     FetchFriendReqListRequest req;
     public FetchFriendReqListHandler(FetchFriendReqListRequest req) {
         this.req = req;

@@ -15,6 +15,10 @@ public class SearchUserResult implements Serializable {
         this.searchUserStatus=searchUserStatus;
     }
 
+    public SearchUserResult(SearchUserStatus searchUserStatus) {
+        this.searchUserStatus = searchUserStatus;
+    }
+
     public ShortUserDetail getShortUserDetail() {
         return shortUserDetail;
     }

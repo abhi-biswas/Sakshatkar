@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class LogoutHandler {
+public class LogoutHandler implements Handler {
     LogoutRequest logoutRequest = null;
     Connection connection = null;
 

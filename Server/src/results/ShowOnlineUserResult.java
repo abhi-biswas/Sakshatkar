@@ -20,14 +20,9 @@ public class ShowOnlineUserResult
     public ArrayList<OnlineUserDetail> getOnline(){return this.online;}
     public String getUsername(){return this.username;}
     public String getIp(){return this.ip;}
-    public ShowOnlineUserStatus getShowOnlineUserStatus(){return  this.showOnlineUserStatus;}
+    public ShowOnlineUserStatus getShowOnlineUserStatus(){return  this.showOnlineUserStatus; }
 
-
-
-
-
-
-
-
-
+    public ShowOnlineUserResult(ShowOnlineUserStatus showOnlineUserStatus) {
+        this.showOnlineUserStatus = showOnlineUserStatus;
+    }
 }

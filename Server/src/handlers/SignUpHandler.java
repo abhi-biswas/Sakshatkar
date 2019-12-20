@@ -9,7 +9,7 @@ import requests.SignUpRequest;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class SignUpHandler {
+public class SignUpHandler implements Handler {
     private SignUpRequest req;
     private static String query = "Insert INTO `user` (`username`, `fname`, `lname`, `password`, `salt`,  `addressline1`, `addressline2`, `city`, `pincode`, `ugroupid`) VALUES (?, ?, ?, ?, ?,  ?, ?, ?, ?, ?) ";
     private static String checkQuery = "select count(*) from user where `username`=? ";

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-public class SendFriendRequestHandler {
+public class SendFriendRequestHandler implements Handler {
 
    private SendFriendRequest req;
    Connection con ;

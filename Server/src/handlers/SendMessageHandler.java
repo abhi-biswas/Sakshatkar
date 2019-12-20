@@ -16,7 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 
-public class SendMessageHandler {
+public class SendMessageHandler implements Handler{
     private SendMessageRequest request;
     static private Integer textCount,videoCount,imageCount;
     static {

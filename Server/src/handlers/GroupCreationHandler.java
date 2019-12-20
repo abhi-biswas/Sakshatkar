@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class GroupCreationHandler {
+public class GroupCreationHandler implements Handler {
     private GroupCreationRequest groupCreationRequest;
     private static int groupid = 0;
 

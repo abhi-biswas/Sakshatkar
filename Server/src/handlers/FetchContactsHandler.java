@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class FetchContactsHandler {
+public class FetchContactsHandler implements Handler{
     FetchContactsRequest fetchContactsRequest;
 
     public FetchContactsHandler(FetchContactsRequest fetchContactsRequest){

@@ -8,7 +8,7 @@ import results.FetchSaltResult;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class FetchSaltHandler {
+public class FetchSaltHandler implements Handler {
     private static String checkQuery = "select count(*) from user where `username`=? ";
     private static String query = "select salt from user where `username`=?";
     private FetchSaltRequest req;

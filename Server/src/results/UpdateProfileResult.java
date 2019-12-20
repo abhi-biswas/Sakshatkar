@@ -14,6 +14,10 @@ public class UpdateProfileResult {
         this.updateProfileStatus=updateProfileStatus;
     }
 
+    public UpdateProfileResult(UpdateProfileStatus updateProfileStatus) {
+        this.updateProfileStatus = updateProfileStatus;
+    }
+
     public String getUsername(){
         return this.username;
     }

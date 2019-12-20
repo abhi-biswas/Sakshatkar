@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 
 
 
-public class LoginHandler {
+public class LoginHandler implements Handler {
     private LoginRequest loginrequest;
     private Connection connection = null;
     private String ip = null;
@@ -20,9 +20,16 @@ public class LoginHandler {
         this.loginrequest = loginrequest;
         this.ip = ip;
     }
-    public LoginResult handle() throws  Exception
+    public LoginResult handle()
     {
-        return  checkCredentials();
+        try {
+            return checkCredentials();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return new LoginResult(LoginStatus.ERROR);
+        }
     }
     public LoginResult checkCredentials() throws Exception{
 
@@ -76,7 +83,7 @@ public class LoginHandler {
                 return new LoginResult(loginstatus);
 
             default:
-                return null;
+                return new LoginResult(LoginStatus.ERROR);
         }
     }
 }

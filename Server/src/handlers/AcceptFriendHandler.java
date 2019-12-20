@@ -7,7 +7,7 @@ import requests.AcceptFriendRequest;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class AcceptFriendHandler {
+public class AcceptFriendHandler implements Handler{
     AcceptFriendRequest req;
 
     public AcceptFriendHandler(AcceptFriendRequest req) {

@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class FetchMessagesHandler {
+public class FetchMessagesHandler implements Handler {
     FetchMessagesRequest req;
     private static String rangeQuery = "select * from chat where recievername=? AND sendername = ? AND TIMESTAMPDIFF(SECOND, chat.sendtime,CURRENT_TIMESTAMP)<=?";
     private static String countQuery = "select * from chat where recievername=? AND sendername = ? order by sendtime desc limit ?";
