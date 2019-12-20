@@ -25,8 +25,7 @@ create table imagemessage(messageid int, pic mediumblob, inSecondary boolean, la
 create table textmessage(messageid int, msg tinytext, inSecondary boolean, lastused timestamp , primary key(messageid));
 
 -- viewStatus >> 0 -> sent , 1-> received by the recipient, 2 -> seen (to be added in future)
--- recievername is groupid for group and ugroupid for user
-create table chat(type varchar(3),messageid int, sendername varchar(15), recievername int, sendtime timestamp,
+create table chat(type varchar(3),messageid int, sendername varchar(15), recievername varchar(15), sendtime timestamp,
 						 primary key(type,messageid),viewStatus int(1));
 
 create table files(fileid int, filelocation varchar(100), creationtime timestamp, primary key(fileid));
