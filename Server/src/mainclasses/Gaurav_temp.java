@@ -1,11 +1,15 @@
 package mainclasses;
-import constants.FetchprofileStatus;
-import handlers.Fetchprofilehandler;
-import requests.Fetchprofilerequest;
-import results.Fetchprofileresult;
+import constants.ShowOnlineUserStatus;
+import constants.UpdateProfileStatus;
+import handlers.ShowOnlineUserHandler;
+import requests.ShowOnlineUserRequest;
+import results.ShowOnlineUserResult;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
+
 public class Gaurav_temp {
     public static void main(String[] args) {
         try {
@@ -23,18 +27,22 @@ public class Gaurav_temp {
         {
             ex.printStackTrace();
         }
-        Fetchprofilerequest req = new Fetchprofilerequest("gaurav");
-         Fetchprofilehandler handler= new Fetchprofilehandler(req);
+        ShowOnlineUserRequest req = new ShowOnlineUserRequest("gaurav","172.31.100.27");
+        ShowOnlineUserHandler handler= new ShowOnlineUserHandler(req);
         try{
-            Fetchprofileresult fetchprofileresult =handler.handle();
+            ShowOnlineUserResult showOnlineUserResult =handler.handle();
             System.out.print("okkkk");
-            if(fetchprofileresult.getLoginstatus()== FetchprofileStatus.SUCESS)
+            if(showOnlineUserResult.getShowOnlineUserStatus()== ShowOnlineUserStatus.SUCESS)
             {
-                System.out.print("SUCESS");
+
+                System.out.println("LIST OF ONLINE USER");
+                System.out.print(showOnlineUserResult.getOnline().size());
+                for(int i=0;i<showOnlineUserResult.getOnline().size();i++)
+                System.out.println(showOnlineUserResult.getOnline().get(i).getUsername()+showOnlineUserResult.getOnline().get(i).getFname());
             }
             else
             {
-                System.out.println("Failure");
+                System.out.println("Failure update");
             }
         }
         catch (Exception e)
