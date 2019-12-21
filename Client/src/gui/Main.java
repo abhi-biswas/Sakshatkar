@@ -1,5 +1,4 @@
 package gui;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,24 +10,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
 public class Main extends Application {
     private static Socket socket;
     private static ObjectOutputStream oos;
     private static ObjectInputStream ois;
-
     public static Socket getSocket() {
         return socket;
     }
-
     public static ObjectOutputStream getOos() {
         return oos;
     }
-
     public static ObjectInputStream getOis() {
         return ois;
     }
-
     public static void main(String[] args) {
         try
         {
@@ -38,8 +32,6 @@ public class Main extends Application {
             //https://stackoverflow.com/questions/54095782/the-program-stops-when-the-objectinputstream-object-is-created
             ois = new ObjectInputStream(socket.getInputStream());
             oos = new ObjectOutputStream(socket.getOutputStream());
-
-
         }
         catch(Exception e)
         {
@@ -48,7 +40,6 @@ public class Main extends Application {
         }
         launch(args);
     }
-
     @Override
     public void start(Stage primaryStage) {
         Parent root=null;
