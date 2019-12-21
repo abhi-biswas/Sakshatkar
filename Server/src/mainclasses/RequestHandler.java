@@ -37,7 +37,7 @@ public class RequestHandler extends Thread
     @Override
     public void run()
     {
-        System.out.println("Handling Client: "+socket.getRemoteSocketAddress());
+        System.out.println("Handling Client: "+socket.getInetAddress().getHostAddress());
         String client = ""+socket.getRemoteSocketAddress();
         while (true)
         {
@@ -55,7 +55,7 @@ public class RequestHandler extends Thread
                 Handler handler=null;
 
                 if(inReq instanceof LoginRequest)
-                    handler = new LoginHandler((LoginRequest) inReq,""+socket.getRemoteSocketAddress());
+                    handler = new LoginHandler((LoginRequest) inReq,""+socket.getInetAddress().getHostAddress());
 
                 if(inReq instanceof SignUpRequest)
                     handler = new SignUpHandler((SignUpRequest)inReq);
