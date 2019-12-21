@@ -2,9 +2,10 @@ package results;
 
 import constants.ShowOnlineUserStatus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ShowOnlineUserResult
+public class ShowOnlineUserResult implements Serializable
 {
 
     private ArrayList<OnlineUserDetail> online;

@@ -78,6 +78,20 @@ public class RequestHandler extends Thread
                 if(inReq instanceof SendMessageRequest)
                     handler = new SendMessageHandler((SendMessageRequest) inReq);
 
+                if(inReq instanceof LogoutRequest)
+                    handler = new LogoutHandler((LogoutRequest) inReq);
+
+                if(inReq instanceof AddGroupMemberRequest)
+                    handler = new AddGroupMemberHandler((AddGroupMemberRequest) inReq);
+
+                if(inReq instanceof DeleteGroupRequest)
+                    handler = new DeleteGroupHandler((DeleteGroupRequest) inReq);
+
+                if(inReq instanceof FetchContactsRequest)
+                    handler = new FetchContactsHandler((FetchContactsRequest) inReq);
+
+
+
                 //add your handler
                 Object resp = handler.handle();
                 oos.writeObject(resp);

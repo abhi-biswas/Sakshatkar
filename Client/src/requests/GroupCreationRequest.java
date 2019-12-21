@@ -1,6 +1,8 @@
 package requests;
 
-public class GroupCreationRequest {
+import java.io.Serializable;
+
+public class GroupCreationRequest implements Serializable{
     private String ownername;
     private String groupname;
     private int groupcapacity;

@@ -3,7 +3,9 @@ package results;
 import constants.UpdateProfileStatus;
 import requests.UpdateProfileRequest;
 
-public class UpdateProfileResult {
+import java.io.Serializable;
+
+public class UpdateProfileResult implements Serializable {
 
     private String username;
     private UpdateProfileStatus updateProfileStatus;
