@@ -7,7 +7,8 @@ create table user(username varchar(15) NOT NULL, fname varchar(40), lname varcha
 create table friendrequests(sendername varchar(15), recievername varchar(15), requesttime timestamp
 					, primary key(sendername, recievername));
 
-create table login(username varchar(15), ip varchar(30), status boolean, primary key(username));
+create table login(username varchar(15), ip varchar(30), busyOnCall boolean, primary key(username));
+-- busyOnCall = true then caller busy else not busy
 
 create table contacts(username varchar(15), contactname varchar(15), primary key(username, contactname));
 
