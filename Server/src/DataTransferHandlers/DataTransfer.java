@@ -1,18 +1,11 @@
 package DataTransferHandlers;
-
 import mainclasses.Connector;
-
-import javax.sound.sampled.*;
-import java.io.ByteArrayOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import static java.lang.System.out;
-
 public class DataTransfer implements  Runnable {
     private String sender,receiver;
     private int port;
@@ -31,7 +24,7 @@ public class DataTransfer implements  Runnable {
             while (true) {
                 //code to get the ip address of sender from login table
 
-                preparedStatement.setString(1,receiver );
+                preparedStatement.setString(1,sender );
                 ResultSet resultSet = preparedStatement.executeQuery();
                 String hostname = null;
                 if(resultSet.next())
@@ -42,16 +35,9 @@ public class DataTransfer implements  Runnable {
                 resultSet = preparedStatement.executeQuery();
                 hostname = null;
                 //code to get the ip address of sender from login table
-
-
                 if(resultSet.next())
                     hostname = resultSet.getString("ip");
                 InetAddress addressReceiver = InetAddress.getByName(hostname);
-
-
-
-
-
                 try{
                     DatagramSocket serverSocket = new DatagramSocket(port);
                     byte[] receiveData = new byte[1024];
@@ -70,9 +56,6 @@ public class DataTransfer implements  Runnable {
                 }catch (Exception e){
                 }
 
-
-
-                // send the audio message to the receiver
 
             }
 
