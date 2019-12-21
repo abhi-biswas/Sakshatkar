@@ -16,7 +16,7 @@ public class Main extends Application {
     private static Socket socket;
     private static ObjectOutputStream oos;
     private static ObjectInputStream ois;
-
+    private static int audioDatagramPort = 6678, videoDatagramPort = 6679;
     public static Socket getSocket() {
         return socket;
     }
@@ -54,6 +54,14 @@ public class Main extends Application {
         }
         launch(args);
 
+    }
+
+    public static int getAudioDatagramPort() {
+        return audioDatagramPort;
+    }
+
+    public static int getVideoDatagramPort() {
+        return videoDatagramPort;
     }
 
     @Override
