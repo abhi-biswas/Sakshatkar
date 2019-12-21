@@ -1,8 +1,7 @@
 package constants;
 
-import java.io.Serializable;
 
-public enum AudioCallConnectStatus implements Serializable {
+public enum CallConnectStatus {
     CALLEEOFFLINE,
     CALLEEBUSY,
     CONNECTSUCCESSFUL,

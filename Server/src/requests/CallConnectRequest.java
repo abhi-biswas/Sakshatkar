@@ -1,11 +1,15 @@
 package requests;
 
-public class AudioCallConnectRequest {
-    private String callername, calleename;
+import constants.CallType;
 
-    public AudioCallConnectRequest(String callername, String calleename){
+public class CallConnectRequest {
+    private String callername, calleename;
+    private CallType callType;
+
+    public CallConnectRequest(String callername, String calleename, CallType callType){
         this.callername = callername;
         this.calleename = calleename;
+        this.callType = callType;
     }
 
     public String getCallername() {
@@ -14,5 +18,9 @@ public class AudioCallConnectRequest {
 
     public String getCalleename() {
         return calleename;
+    }
+
+    public CallType getCallType() {
+        return callType;
     }
 }

@@ -1,9 +1,10 @@
 package handlers;
 
-import constants.AudioCallConnectStatus;
+import constants.CallConnectStatus;
 import constants.BinaryStatus;
 import mainclasses.Connector;
-import requests.AudioCallConnectRequest;
+import requests.CallConnectRequest;
+import results.CallConnectResult;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,12 +15,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AudioCallConnectHandler implements Handler {
-    private AudioCallConnectRequest audioCallConnectRequest;
+public class CallConnectHandler implements Handler {
+    private CallConnectRequest callConnectRequest;
     private Connection connection;
 
-    public AudioCallConnectHandler(AudioCallConnectRequest audioCallConnectRequest){
-        this.audioCallConnectRequest = audioCallConnectRequest;
+    public CallConnectHandler(CallConnectRequest callConnectRequest){
+        this.callConnectRequest = callConnectRequest;
     }
 
 
@@ -33,62 +34,63 @@ public class AudioCallConnectHandler implements Handler {
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, this.audioCallConnectRequest.getCalleename());
+            preparedStatement.setString(1, this.callConnectRequest.getCalleename());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next())
             {
                 if(resultSet.getBoolean("busyOnCall")){
-                    return AudioCallConnectStatus.CALLEEBUSY;
+                    return new CallConnectResult(CallConnectStatus.CALLEEBUSY);
                 }
                 else
                 {
-                    AudioCallConnectStatus audioCallConnectStatus = sendAudioCallConnectRequest(resultSet.getString("ip"));
+                    CallConnectResult callConnectResult = sendAudioCallConnectRequest(resultSet.getString("ip"));
 
-                    if(audioCallConnectStatus == AudioCallConnectStatus.CONNECTSUCCESSFUL){
+                    if(callConnectResult.getCallConnectStatus() == CallConnectStatus.CONNECTSUCCESSFUL){
 
                         BinaryStatus binaryStatus = updateDatabase();
                         if(binaryStatus == BinaryStatus.FAILURE)
-                            return AudioCallConnectStatus.CONNECTFAILURE;
+                            return new CallConnectResult(CallConnectStatus.CONNECTFAILURE);
 
                     }
 
-                    return audioCallConnectStatus;
+                    return callConnectResult;
                 }
             }
             else
-                return AudioCallConnectStatus.CALLEEOFFLINE;
+                return new CallConnectResult(CallConnectStatus.CALLEEOFFLINE);
         }catch (SQLException e){
             e.printStackTrace();
-            return AudioCallConnectStatus.CONNECTFAILURE;
+            return new CallConnectResult(CallConnectStatus.CONNECTFAILURE);
         }
 
     }
 
-    public AudioCallConnectStatus sendAudioCallConnectRequest(String ip){
+    public CallConnectResult sendAudioCallConnectRequest(String ip){
 
-        AudioCallConnectStatus audioCallConnectStatus = null;
+        CallConnectResult callConnectResult = null;
         try {
             Socket socket = new Socket(ip, 2770);
 
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
-            objectOutputStream.writeObject(this.audioCallConnectRequest);
+            objectOutputStream.writeObject(this.callConnectRequest);
             objectOutputStream.flush();
             objectOutputStream.close();
 
             ObjectInputStream objectInputStream = new ObjectInputStream((socket.getInputStream()));
 
-            audioCallConnectStatus = (AudioCallConnectStatus)objectInputStream.readObject();
+            callConnectResult = (CallConnectResult) objectInputStream.readObject();
 
             objectInputStream.close();
 
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            return new CallConnectResult(CallConnectStatus.CONNECTFAILURE);
         }
-        return  audioCallConnectStatus;
+        return callConnectResult;
     }
 
     public BinaryStatus updateDatabase(){
@@ -99,10 +101,10 @@ public class AudioCallConnectHandler implements Handler {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
 
-            preparedStatement.setString(1, this.audioCallConnectRequest.getCalleename());
+            preparedStatement.setString(1, this.callConnectRequest.getCalleename());
             preparedStatement.executeUpdate();
 
-            preparedStatement.setString(1, this.audioCallConnectRequest.getCallername());
+            preparedStatement.setString(1, this.callConnectRequest.getCallername());
             preparedStatement.executeUpdate();
 
             return BinaryStatus.SUCCESS;
