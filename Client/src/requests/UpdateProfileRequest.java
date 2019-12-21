@@ -1,6 +1,8 @@
 package requests;
 
-public class UpdateProfileRequest {
+import java.io.Serializable;
+
+public class UpdateProfileRequest implements Serializable{
     private String username;
     private String fname;
     private  String lname;

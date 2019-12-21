@@ -4,7 +4,7 @@ import constants.ShowOnlineUserStatus;
 
 import java.util.ArrayList;
 
-public class ShowOnlineUserResult
+public class ShowOnlineUserResult implements Serializable
 {
 
     private ArrayList<OnlineUserDetail> online;

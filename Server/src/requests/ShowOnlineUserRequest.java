@@ -1,6 +1,8 @@
 package requests;
 
-public class ShowOnlineUserRequest {
+import java.io.Serializable;
+
+public class ShowOnlineUserRequest implements Serializable {
     private String username;
     private String ip;
     public ShowOnlineUserRequest(String username,String ip)

@@ -1,8 +1,9 @@
 package results;
 
 import constants.BinaryStatus;
+import java.io.Serializable;
 
-public class GroupCreationResult {
+public class GroupCreationResult implements Serializable{
     private int groupid;
     BinaryStatus binaryStatus;
 
