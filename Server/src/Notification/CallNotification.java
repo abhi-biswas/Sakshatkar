@@ -1,8 +1,11 @@
 package Notification;
 
-public class CallNotification {
+import javax.management.Notification;
+
+public abstract class CallNotification {
 
     private  NotificationStatus notificationStatus;
+
     public CallNotification(NotificationStatus notificationStatus)
     {
         this.notificationStatus=notificationStatus;
@@ -11,4 +14,5 @@ public class CallNotification {
     public NotificationStatus getNotificationStatus() {
         return notificationStatus;
     }
+    public abstract CallNotification CallNotificationType();
 }
