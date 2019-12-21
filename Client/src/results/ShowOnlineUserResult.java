@@ -3,6 +3,7 @@ package results;
 import constants.ShowOnlineUserStatus;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
 public class ShowOnlineUserResult implements Serializable
 {
