@@ -31,7 +31,7 @@ public class DataTransfer implements  Runnable {
             while (true) {
                 //code to get the ip address of sender from login table
 
-                preparedStatement.setString(1,receiver );
+                preparedStatement.setString(1,sender );
                 ResultSet resultSet = preparedStatement.executeQuery();
                 String hostname = null;
                 if(resultSet.next())
