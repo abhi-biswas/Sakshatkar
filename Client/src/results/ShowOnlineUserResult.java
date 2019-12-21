@@ -2,6 +2,7 @@ package results;
 
 import constants.ShowOnlineUserStatus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.io.Serializable;
 

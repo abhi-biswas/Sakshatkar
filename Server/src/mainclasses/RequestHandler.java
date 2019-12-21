@@ -95,6 +95,14 @@ public class RequestHandler extends Thread
 
                 if(inReq instanceof CallConnectRequest)
                     handler = new CallConnectHandler((CallConnectRequest) inReq);
+                if(inReq instanceof UpdateProfileRequest)
+                    handler=new UpdateProfileHandler((UpdateProfileRequest)inReq);
+                if(inReq instanceof Fetchprofilerequest)
+                    handler=new Fetchprofilehandler((Fetchprofilerequest)inReq);
+                if(inReq instanceof SearchUserRequest)
+                    handler=new SearchUserHandler((SearchUserRequest) inReq);
+                if(inReq instanceof  DeleteAccountRequest)
+                   handler=new DeleteAccountHandler((DeleteAccountRequest)inReq);
 
 
                 //add your handler
