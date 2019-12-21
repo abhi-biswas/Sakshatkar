@@ -1,20 +1,11 @@
 package mainclasses;
-import constants.SearchUserStatus;
-import constants.ShowOnlineUserStatus;
-import constants.UpdateProfileStatus;
-import handlers.SearchUserHandler;
-import handlers.ShowOnlineUserHandler;
-import requests.SearchUserRequest;
-import requests.ShowOnlineUserRequest;
-import results.SearchUserResult;
-import results.ShortUserDetail;
-import results.ShowOnlineUserResult;
-
+import constants.DeleteAccountStatus;
+import handlers.DeleteAccountHandler;
+import requests.DeleteAccountRequest;
+import results.DeleteAccountResult;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
-
 public class Gaurav_temp {
     public static void main(String[] args) {
         try {
@@ -32,28 +23,31 @@ public class Gaurav_temp {
         {
             ex.printStackTrace();
         }
-        SearchUserRequest req = new SearchUserRequest("gaurav");
-        SearchUserHandler handler= new SearchUserHandler(req);
+        DeleteAccountRequest req = new DeleteAccountRequest("gaurav","Gaurav@12");
+        DeleteAccountHandler handler= new DeleteAccountHandler(req);
         try{
-            SearchUserResult searchUserResult =handler.handle();
-            System.out.print("okkkk");
-            if(searchUserResult.getSearchUserStatus()== SearchUserStatus.FOUND)
+            DeleteAccountResult deleteAccountResult = handler.handle();
+            if(deleteAccountResult.getDeleteAccountStatus()== DeleteAccountStatus.DELETEDSUCESSFULLY)
             {
 
-                System.out.println("USER DETAILS");
-                ShortUserDetail shortUserDetail=searchUserResult.getShortUserDetail();
-                System.out.print(shortUserDetail.getUsername()+" "+shortUserDetail.getFname()+" "+shortUserDetail.getSname()+" "+shortUserDetail.getCity());
+                System.out.println("USER DELETED");
+
+                System.out.print(deleteAccountResult.getUsername());
             }
-            else
+            else if(deleteAccountResult.getDeleteAccountStatus()== DeleteAccountStatus.USERNOTFOUND)
             {
-                System.out.println("USERNOT FOUND");
+                System.out.println("USER NOT FOUND");
+            }
+            else if(deleteAccountResult.getDeleteAccountStatus()== DeleteAccountStatus.PASSWORDNOTMATCH)
+            {
+                System.out.print("Password not matched");
             }
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-        while(true)
+        while (true)
         {
             Socket socket=null;
             while(true)
