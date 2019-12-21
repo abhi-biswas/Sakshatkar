@@ -90,6 +90,11 @@ public class RequestHandler extends Thread
                 if(inReq instanceof FetchContactsRequest)
                     handler = new FetchContactsHandler((FetchContactsRequest) inReq);
 
+                if(inReq instanceof GroupCreationRequest)
+                    handler = new GroupCreationHandler((GroupCreationRequest) inReq);
+
+                if(inReq instanceof CallConnectRequest)
+                    handler = new CallConnectHandler((CallConnectRequest) inReq);
 
 
                 //add your handler
