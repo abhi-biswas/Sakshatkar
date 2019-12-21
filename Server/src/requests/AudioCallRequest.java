@@ -1,15 +1,16 @@
 package requests;
 
-public class VideoCallRequest extends CallRequest {
+public class AudioCallRequest extends CallRequest {
 
     private String caller,callee;
     private  int port;
-    public VideoCallRequest(String caller,String  callee)
+    public AudioCallRequest(String caller,String  callee)
     {
         this.callee=callee;
         this.caller=caller;
-        this.port=3001;
+        this.port=3002;
     }
 
 
 }
+
