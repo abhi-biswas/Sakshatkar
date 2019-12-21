@@ -6,24 +6,14 @@ import java.sql.Timestamp;
 public class ContactUserDetail implements Serializable {
     private String username;
     private String fname, lname;
-    private Timestamp lastseen;
-    private Boolean isonline;
 
-    public ContactUserDetail(String username, String fname, String lname, Timestamp lastseen){
+
+    public ContactUserDetail(String username, String fname, String lname){
         this.username = username;
         this.fname = fname;
         this.lname = lname;
-        this.lastseen = lastseen;
-        this.isonline = false;
     }
 
-    public ContactUserDetail(String username, String fname, String lname, Boolean isonline){
-        this.username = username;
-        this.fname = fname;
-        this.lname = lname;
-        this.lastseen = null;
-        this.isonline = isonline;
-    }
 
     public String getUsername() {
         return username;
@@ -37,12 +27,4 @@ public class ContactUserDetail implements Serializable {
         return fname;
     }
 
-    public Timestamp getLastseen() {
-        return lastseen;
-    }
-
-    public Boolean getIsonline() {
-
-        return  isonline;
-    }
 }

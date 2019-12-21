@@ -24,11 +24,9 @@ public class FetchContactsHandler implements Handler{
         Connection connection = Connector.getConnection();
         ArrayList<ContactUserDetail> list = new ArrayList<>();
 
-        String query = "select A.username, A.fname, A.lname, A.lastseen from user A, contacts B where ((B.username = ? and A.username" +
-                " = B.contactname) or (B.contactname = ? and A.username = B.username)) and A.username not in (select username from login)";
+        String query = "select A.username, A.fname, A.lname, from user A, contacts B where ((B.username = ? and A.username" +
+                " = B.contactname) or (B.contactname = ? and A.username = B.username))";
 
-        String query1 = "select A.username, A.fname, A.lname from user A, contacts B where ((B.username = ? and A.username" +
-                " = B.contactname) or (B.contactname = ? and A.username = B.username)) and A.username in (select username from login)";
 
 
         try {
@@ -39,24 +37,11 @@ public class FetchContactsHandler implements Handler{
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            // get the list of offline contacts
+            // get the list of contacts
 
             while(resultSet.next()){
-                list.add(new ContactUserDetail(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
-                        resultSet.getTimestamp(4)));
-            }
 
-            preparedStatement = connection.prepareStatement(query1);
-
-            preparedStatement.setString(1,this.fetchContactsRequest.getUsername());
-            preparedStatement.setString(2, this.fetchContactsRequest.getUsername());
-
-            resultSet = preparedStatement.executeQuery();
-
-            //get the list of online contacts
-
-            while(resultSet.next()){
-                list.add(new ContactUserDetail(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), true));
+                list.add(new ContactUserDetail(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3)));
             }
 
             return new FetchContactsResult(list);
