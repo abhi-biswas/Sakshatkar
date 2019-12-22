@@ -4,16 +4,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.index">
+<?import javafx.scene.control.Label?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.index">
     <children>
-        <Button id="LoginButton" fx:id="LoginButton" layoutX="218.0" layoutY="148.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="25.0" prefWidth="369.0" text="LOGIN">
+        <Button id="LoginButton" fx:id="LoginButton" layoutX="330.0" layoutY="250.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="25.0" prefWidth="250.0" text="LOGIN">
             <font>
                 <Font size="43.0" />
             </font></Button>
-        <Button id="SignUpButton" fx:id="SignUpButton" layoutX="218.0" layoutY="380.0" mnemonicParsing="false" onAction="#signUpButtnClicked" prefHeight="25.0" prefWidth="369.0" text="SignUp">
+        <Button id="SignUpButton" fx:id="SignUpButton" layoutX="330.0" layoutY="380.0" mnemonicParsing="false" onAction="#signUpButtnClicked" prefHeight="25.0" prefWidth="250.0" text="SignUp">
             <font>
-                <Font size="46.0" />
+                <Font size="43.0" />
             </font>
         </Button>
+        <Label fx:id="label" layoutX="75.0" layoutY="400" prefHeight="25.0" prefWidth="200.0" text="Not a User ?">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Label>
+        <Label fx:id="Title" layoutX="200" layoutY="20" prefHeight="50" prefWidth="800" text="Sakshatkar">
+            <font>
+                <Font size="75"/>
+            </font>
+        </Label>
     </children>
 </AnchorPane>

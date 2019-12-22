@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import results.LoginResult;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,6 +18,16 @@ public class Main extends Application {
     private static ObjectOutputStream oos;
     private static ObjectInputStream ois;
     private static int audioDatagramPort = 6678, videoDatagramPort = 6679;
+    private static LoginResult loginResult;
+
+    public static void setLoginResult(LoginResult loginResult) {
+        Main.loginResult = loginResult;
+    }
+
+    public static LoginResult getLoginResult() {
+        return loginResult;
+    }
+
     public static Socket getSocket() {
         return socket;
     }
@@ -33,8 +44,8 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         //Tester code for audio calling by Kunal Anand
-        Thread thread = new Thread(new AudioCall("anandkunal241"));
-        thread.start();
+       // Thread thread = new Thread(new AudioCall("anandkunal241"));
+        //thread.start();
 
         try
         {
@@ -69,7 +80,7 @@ public class Main extends Application {
         Parent root=null;
         try {
             root= FXMLLoader.load(getClass().getResource("index.fxml"));
-            primaryStage.setTitle("Secure Quiz");
+            primaryStage.setTitle("Sakshtkar");
             primaryStage.initStyle(StageStyle.DECORATED);
             primaryStage.setScene(new Scene(root, 800, 600));
             primaryStage.show();
