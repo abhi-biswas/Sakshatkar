@@ -4,6 +4,11 @@ import gui.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * @author kunal
+ * Not complete Menu Button to be added
+ */
+
 public class Homepage {
 
     @FXML
