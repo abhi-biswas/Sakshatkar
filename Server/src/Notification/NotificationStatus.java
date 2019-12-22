@@ -1,5 +1,5 @@
 package Notification;
 
 public enum NotificationStatus {
-    ACCEPT,REJECT
+    ACCEPT,REJECT,CALLEEAVAILABLE,CALLREQUEST
 }
