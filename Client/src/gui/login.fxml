@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"
-            xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.loginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.loginController">
     <children>
-        <Button id="loginButton" fx:id="loginButton" layoutX="300.0" layoutY="300.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="20.0" prefWidth="200.0" text="LOGIN">
+        <Button id="loginButton" fx:id="loginButton" layoutX="174.0" layoutY="337.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="82.0" prefWidth="213.0" text="LOGIN" textFill="#186c75">
             <font>
                 <Font size="43.0" />
             </font>
+         <effect>
+            <DropShadow />
+         </effect>
         </Button>
         <TextField id="Username" fx:id="Username" layoutX="180.0" layoutY="125.0" prefHeight="25.0" prefWidth="441.0" promptText="Enter Username">
             <font>
@@ -29,9 +29,26 @@
                 <Font size="27.0" />
             </font>
         </PasswordField>
-        <Button fx:id="backButton" layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonClicked" text="Back" />
-        <Label fx:id="label" layoutX="520.0" layoutY="330.0" prefHeight="32.0" prefWidth="175.0" text="Enter the details carefully " />
-        <Label fx:id="signal" layoutX="20" layoutY="330" prefHeight="32.0" prefWidth="175.0" text=""/>
+        <Button fx:id="backButton" layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="26.0" prefWidth="107.0" text="Back" textFill="#186c75">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
+        <Label fx:id="label" layoutX="416.0" layoutY="362.0" prefHeight="32.0" prefWidth="255.0" text="Enter the details carefully ">
+         <font>
+            <Font name="Ubuntu Bold Italic" size="18.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect></Label>
+        <Label fx:id="signal" layoutX="20" layoutY="330" prefHeight="32.0" prefWidth="175.0" text="" />
+      <Label layoutX="301.0" layoutY="27.0" prefHeight="71.0" prefWidth="229.0" text="Sakshatkar" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+      </Label>
     </children>
 
 </AnchorPane>
