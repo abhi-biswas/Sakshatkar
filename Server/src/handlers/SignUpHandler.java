@@ -5,6 +5,7 @@ import mainclasses.Connector;
 import mainclasses.HashGenerator;
 import mainclasses.SaltGenerator;
 import requests.SignUpRequest;
+import results.SignUpResult;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ public class SignUpHandler implements Handler {
         this.req = req;
     }
 
-    public SignUpStatus handle()
+    public SignUpResult handle()
     {
         try{
             PreparedStatement statement1 = Connector.getConnection().prepareStatement(checkQuery);
@@ -26,7 +27,7 @@ public class SignUpHandler implements Handler {
             ResultSet rs = statement1.executeQuery();
             rs.next();
             if(rs.getInt(1)!=0)
-                return SignUpStatus.USERNAME_TAKEN;
+                return  new SignUpResult(SignUpStatus.USERNAME_TAKEN);
             PreparedStatement statement2 = Connector.getConnection().prepareStatement(query);
             statement2.setString(1,req.getUsername());
             statement2.setString(2,req.getFname());
@@ -47,8 +48,8 @@ public class SignUpHandler implements Handler {
         catch (Exception e)
         {
             e.printStackTrace();
-            return SignUpStatus.FAILURE;
+            return new SignUpResult(SignUpStatus.FAILURE);
         }
-        return SignUpStatus.SUCCESS;
+        return new SignUpResult(SignUpStatus.SUCCESS);
     }
 }
