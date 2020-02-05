@@ -3,13 +3,14 @@ import mainclasses.Connector;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketAddress;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-public class DataTransfer implements  Runnable {
+public class AudioTransfer implements  Runnable {
     private String sender,receiver;
     private int port;
-    public DataTransfer(String user1,String user2,int port)
+    public AudioTransfer(String user1, String user2, int port)
     {
         this.sender=user1;
         this.receiver=user2;
@@ -26,30 +27,36 @@ public class DataTransfer implements  Runnable {
 
                 preparedStatement.setString(1,sender );
                 ResultSet resultSet = preparedStatement.executeQuery();
-                String hostname = null;
+                String senderhostname = null;
                 if(resultSet.next())
-                    hostname = resultSet.getString("ip");
-                InetAddress addressSender = InetAddress.getByName(hostname);
+                    senderhostname = resultSet.getString("ip");
 
                 preparedStatement.setString(1,receiver );
                 resultSet = preparedStatement.executeQuery();
-                hostname = null;
+                String receiverhostname = null;
                 //code to get the ip address of sender from login table
                 if(resultSet.next())
-                    hostname = resultSet.getString("ip");
-                InetAddress addressReceiver = InetAddress.getByName(hostname);
+                    receiverhostname = resultSet.getString("ip");
                 try{
                     DatagramSocket serverSocket = new DatagramSocket(port);
                     byte[] receiveData = new byte[1024];
                     byte[] sendData;
+                    String address = ""+serverSocket.getRemoteSocketAddress();
+                    if(address.equals(receiverhostname))
+                    {
+                        receiverhostname=senderhostname;
+                        senderhostname = address;
+                    }
 
+                    InetAddress addressSender = InetAddress.getByName(senderhostname);
+                    InetAddress addressReciever = InetAddress.getByName(receiverhostname);
                     while(true)
                     {
-                        DatagramPacket receivePacket = new DatagramPacket(receiveData,0, receiveData.length,addressReceiver,port);
+                        DatagramPacket receivePacket = new DatagramPacket(receiveData,0, receiveData.length,addressSender,port);
                         serverSocket.receive(receivePacket);
                         receiveData = receivePacket.getData();
                         System.out.println("RECEIVED: " );
-                        DatagramPacket sendPacket = new DatagramPacket(receiveData, 0,receiveData.length, addressSender, port);
+                        DatagramPacket sendPacket = new DatagramPacket(receiveData, 0,receiveData.length, addressReciever, port);
                         serverSocket.send(sendPacket);
                         System.out.println("SENt: " );
                     }

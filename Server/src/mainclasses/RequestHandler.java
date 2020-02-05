@@ -6,6 +6,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import DataTransferHandlers.AudioTransfer;
+import DataTransferHandlers.VideoTransfer;
+import constants.CallConnectStatus;
+import constants.CallType;
 import requests.*;
 import handlers.*;
 import results.*;
@@ -107,6 +111,28 @@ public class RequestHandler extends Thread
 
                 //add your handler
                 Object resp = handler.handle();
+
+                if(resp instanceof CallConnectResult)
+                {
+                    CallConnectResult res = (CallConnectResult)resp;
+                    CallConnectStatus status = res.getCallConnectStatus();
+                    switch (status)
+                    {
+                        case CONNECTSUCCESSFUL:
+                            new Thread(new AudioTransfer(res.getCaller(),res.getCallee(),6678)).start();
+                            if(res.getCallType()== CallType.VIDEO)
+                            {
+                                new Thread(new VideoTransfer(res.getCaller(),res.getCallee(),6679)).start();
+                            }
+                            else
+                            {
+                                new Thread(new AudioTransfer(res.getCaller(),res.getCallee(),6678)).start();
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 oos.writeObject(resp);
             }
             catch (Exception e){

@@ -18,6 +18,7 @@ import java.sql.SQLException;
 public class CallConnectHandler implements Handler {
     private CallConnectRequest callConnectRequest;
     private Connection connection;
+    private String caller,callee;
 
     public CallConnectHandler(CallConnectRequest callConnectRequest){
         this.callConnectRequest = callConnectRequest;
@@ -28,6 +29,8 @@ public class CallConnectHandler implements Handler {
     public Object handle() {
 
         connection = Connector.getConnection();
+        caller = callConnectRequest.getCallername();
+        callee = callConnectRequest.getCalleename();
 
         String query = "select * from login where username = ?";
 
