@@ -44,7 +44,7 @@
             <Glow />
          </effect></Label>
         <Label fx:id="signal" layoutX="20" layoutY="330" prefHeight="32.0" prefWidth="175.0" text="" />
-      <Label layoutX="301.0" layoutY="27.0" prefHeight="71.0" prefWidth="229.0" text="Sakshatkar" textOverrun="WORD_ELLIPSIS">
+      <Label layoutX="302.0" layoutY="27.0" prefHeight="71.0" prefWidth="229.0" text="Sakshatkar" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="System Bold Italic" size="35.0" />
          </font>

@@ -11,9 +11,9 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.Queue;
 /**
- * @author Abhijeet Biswas
+ * @author Abhijeet Biswas, Kunal Anand
  */
-public class VideoDataReceiver extends Task<Void> {
+public class VideoDataReceiver implements Runnable {
     private Queue<VideoPacket> packetQueue;
     DatagramSocket socket;
     private Boolean done;
@@ -25,17 +25,31 @@ public class VideoDataReceiver extends Task<Void> {
     }
 
     @Override
-    protected Void call() throws Exception {
+    public void run()  {
         while(!done)
         {
-            byte[] buffer = new byte[1024];
-            DatagramPacket response = new DatagramPacket(buffer, buffer.length);
-            socket.receive(response);
-            ByteArrayInputStream in = new ByteArrayInputStream(buffer);
-            ObjectInputStream is = new ObjectInputStream(in);
-            VideoPacket packet = (VideoPacket) is.readObject();
-            packetQueue.add(packet);
+            try {
+                byte[] buffer = new byte[200000];
+                DatagramPacket response = new DatagramPacket(buffer, buffer.length);
+                socket.receive(response);
+                // System.out.println("video Data recieved by Kunal");
+                ByteArrayInputStream in = new ByteArrayInputStream(buffer);
+                ObjectInputStream is = new ObjectInputStream(in);
+                VideoPacket packet = (VideoPacket) is.readObject();
+                //System.out.println("video "+packet.getTimestamp());
+                packetQueue.add(packet);
+                //System.out.println("Packets added");
+                //System.out.println("Video queue size : " + packetQueue.size());
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
-        return null;
+        //return null;
+    }
+
+    public Queue<VideoPacket> getPacketQueue() {
+        return packetQueue;
     }
 }
