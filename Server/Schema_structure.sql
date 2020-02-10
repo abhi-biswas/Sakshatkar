@@ -32,3 +32,5 @@ create table chat(type varchar(3),messageid int, sendername varchar(15), recieve
 create table files(fileid int, filelocation varchar(100), creationtime timestamp, primary key(fileid));
 
 create table storedin(fileid int, type varchar(3), messageid int, primary key(fileid, type ,messageid));
+
+create table call(ip1 varchar(30), ip2 varchar(30), primary key(ip1, ip2));
