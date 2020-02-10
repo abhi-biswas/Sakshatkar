@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
-import DataTransferHandlers.AudioTransfer;
-import DataTransferHandlers.VideoTransfer;
+import DataTransferHandlers.DataTransfer;
 import constants.CallConnectStatus;
 import constants.CallType;
 import requests.*;
@@ -41,8 +39,8 @@ public class RequestHandler extends Thread
     @Override
     public void run()
     {
-        System.out.println("Handling Client: "+socket.getInetAddress().getHostAddress());
-        String client = ""+socket.getRemoteSocketAddress();
+        System.out.println("Handling Client: "+socket.getInetAddress().getHostName());
+        String client = ""+socket.getInetAddress().getHostName();
         while (true)
         {
             Object inReq = null;
@@ -119,20 +117,18 @@ public class RequestHandler extends Thread
                     switch (status)
                     {
                         case CONNECTSUCCESSFUL:
-                            new Thread(new AudioTransfer(res.getCaller(),res.getCallee(),6678)).start();
+                            new Thread(new DataTransfer(6678)).start();
                             if(res.getCallType()== CallType.VIDEO)
                             {
-                                new Thread(new VideoTransfer(res.getCaller(),res.getCallee(),6679)).start();
-                            }
-                            else
-                            {
-                                new Thread(new AudioTransfer(res.getCaller(),res.getCallee(),6678)).start();
+                                new Thread(new DataTransfer(6679)).start();
                             }
                             break;
                         default:
                             break;
                     }
                 }
+
+
                 oos.writeObject(resp);
             }
             catch (Exception e){

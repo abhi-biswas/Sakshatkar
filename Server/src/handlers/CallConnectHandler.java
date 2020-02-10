@@ -1,24 +1,25 @@
 package handlers;
 
+/**
+ * @author : Kunal Anand
+ */
+
 import constants.CallConnectStatus;
 import constants.BinaryStatus;
 import mainclasses.Connector;
 import requests.CallConnectRequest;
 import results.CallConnectResult;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class CallConnectHandler implements Handler {
     private CallConnectRequest callConnectRequest;
     private Connection connection;
     private String caller,callee;
+    private String callerip, calleeip;
 
     public CallConnectHandler(CallConnectRequest callConnectRequest){
         this.callConnectRequest = callConnectRequest;
@@ -37,9 +38,15 @@ public class CallConnectHandler implements Handler {
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, this.callConnectRequest.getCalleename());
+            preparedStatement.setString(1, this.callConnectRequest.getCallername());
 
             ResultSet resultSet = preparedStatement.executeQuery();
+
+            callerip = resultSet.getString("ip");
+
+            preparedStatement.setString(1, this.callConnectRequest.getCalleename());
+
+            resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next())
             {
@@ -48,8 +55,8 @@ public class CallConnectHandler implements Handler {
                 }
                 else
                 {
-                    CallConnectResult callConnectResult = sendAudioCallConnectRequest(resultSet.getString("ip"));
-
+                    CallConnectResult callConnectResult = new CallConnectResult(callConnectRequest.getCallType());
+                    calleeip = resultSet.getString("ip");
                     if(callConnectResult.getCallConnectStatus() == CallConnectStatus.CONNECTSUCCESSFUL){
 
                         BinaryStatus binaryStatus = updateDatabase();
@@ -70,40 +77,18 @@ public class CallConnectHandler implements Handler {
 
     }
 
-    public CallConnectResult sendAudioCallConnectRequest(String ip){
-
-        CallConnectResult callConnectResult = null;
-        try {
-            Socket socket = new Socket(ip, 2770);
-
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-
-            objectOutputStream.writeObject(this.callConnectRequest);
-            objectOutputStream.flush();
-            objectOutputStream.close();
-
-            ObjectInputStream objectInputStream = new ObjectInputStream((socket.getInputStream()));
-
-            callConnectResult = (CallConnectResult) objectInputStream.readObject();
-
-            objectInputStream.close();
-
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return new CallConnectResult(CallConnectStatus.CONNECTFAILURE);
-        }
-        return callConnectResult;
-    }
-
     public BinaryStatus updateDatabase(){
 
         String query = "update login set busyOnCall = true where username = ?";
+        String query1 = "insert into call values(?, ?)";
 
         try{
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query1);
+            preparedStatement.setString(1,callerip);
+            preparedStatement.setString(2,calleeip);
+            preparedStatement.executeUpdate();
 
-
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, this.callConnectRequest.getCalleename());
             preparedStatement.executeUpdate();
 

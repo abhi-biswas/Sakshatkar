@@ -14,7 +14,7 @@ import java.net.DatagramSocket;
 import java.net.SocketTimeoutException;
 import java.util.Queue;
 /**
- * @author Abhijeet Biswas
+ * @author Abhijeet Biswas, Kunal Anand, Gaurav Kumar
  */
 public class AudioDataReceiver implements Runnable {
     private Queue<AudioPacket> packetQueue;

@@ -75,18 +75,14 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        //Tester code for audio calling by Kunal Anand
-       // Thread thread = new Thread(new AudioCall("anandkunal241"));
-        //thread.start();
-
-        /*try
+        try
         {
-            socket = new Socket("127.0.0.1",6963);
+            /*socket = new Socket("127.0.0.1",6963);
             System.out.println("Connection Created");
             //Reversing the order causes Deadlock and the project freezes
             //https://stackoverflow.com/questions/54095782/the-program-stops-when-the-objectinputstream-object-is-created
             ois = new ObjectInputStream(socket.getInputStream());
-            oos = new ObjectOutputStream(socket.getOutputStream());
+            oos = new ObjectOutputStream(socket.getOutputStream());*/
 
 
         }
@@ -94,7 +90,7 @@ public class Main extends Application {
         {
             //do nothing
             System.out.println(""+e);
-        }*/
+        }
         launch(args);
 
     }
