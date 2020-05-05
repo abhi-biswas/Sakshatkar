@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import javax.sound.midi.ControllerEventListener;
 import java.io.IOException;
 
-public  class index  {
+public  class Index {
     @FXML
     Button LoginButton;
     @FXML

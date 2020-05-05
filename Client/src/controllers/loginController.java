@@ -10,13 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import requests.LoginRequest;
-import requests.LogoutRequest;
 import results.LoginResult;
 
-import java.awt.desktop.SystemEventListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -79,7 +76,7 @@ public class loginController {
                                             Main.setLoginResult(loginResult);
                                             Stage stage = (Stage) loginButton.getScene().getWindow();
                                             Parent root = FXMLLoader.load
-                                                    (getClass().getResource("../gui/homepage.fxml"));
+                                                    (getClass().getResource("../gui/dashboard.fxml"));
                                             stage.setScene(new Scene(root, 800, 600));
                                             stage.setTitle("HomePage");
 
